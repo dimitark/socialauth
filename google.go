@@ -1,10 +1,5 @@
 package socialauth
 
-import (
-	"errors"
-	"fmt"
-)
-
 // The GoogleAuthProvider validates the token against the google api
 type GoogleAuthProvider struct {
 	validator *GoogleTokenValidator
@@ -25,8 +20,7 @@ func (p *GoogleAuthProvider) VerifyToken(userToken string) (string, error) {
 	userID, err := p.validator.Validate(userToken)
 
 	if err != nil {
-		fmt.Println("Invalid Token!", err)
-		return "", errors.New("Authentication failed.")
+		return "", err
 	}
 
 	return userID, nil
