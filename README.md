@@ -1,4 +1,4 @@
-#SocialAuth.Go
+#SocialAuth.go
 
 The SocialAuth package enables you to verify the OAuth2 authentication tokens issued by social providers. 
 
@@ -18,7 +18,7 @@ import "github.com/dimitark/socialauth"
 
 ### Configuration
 
-You need to configure the client, before you can use it. The library requires valid application IDs for each configured provider. 
+You need to configure the library, before you can use it.
 
 ```go
 	// Configure the SocialAuth
