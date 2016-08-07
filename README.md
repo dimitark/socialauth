@@ -47,6 +47,10 @@ if provider := socialAuth.Get(socialauth.Facebook); provider != nil {
 }
 ```
 
+#### Provider From Name
+
+The function **func ProviderFromName(name string) Provider** is a helper function, that returns the **socialauth.Provider** for the given name.
+
 ### Middleware usage
 
 You can use it as a middleware for both **negroni** OR **gorilla** 
