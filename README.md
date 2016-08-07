@@ -1,6 +1,6 @@
 #Social Auth .go
 
-The SocialAuth package enables you to verify the OAuth2 authentication tokens issued by the social providers. 
+The SocialAuth package enables you to verify the OAuth2 authentication tokens issued by social providers. 
 
 At the moment only two providers are available (Facebook and Google).  
 
@@ -18,7 +18,7 @@ import "github.com/dimitark/socialauth"
 
 ### Configuration
 
-Before using the library - it needs to be configured. The library expects to have valid application IDs for every configured provider. 
+You need to configure the client, before you can use it. The library requires valid application IDs for each configured provider. 
 
 ```go
 config := map[socialauth.Provider]map[string]string{
@@ -31,10 +31,10 @@ config := map[socialauth.Provider]map[string]string{
 	}
 ```
 
-After setting up the configuration, the library can be used in two ways:
+The library can be used in two ways:
 
 * independently
-* as a middleware
+* as middleware
 
 
 ### Independent usage
@@ -53,7 +53,9 @@ if provider := auth.Get(socialauth.Facebook); provider != nil {
 
 ### Middleware usage
 
-Usually this library will be used as part of a middleware. For that reason, the library provides a middleware implementation, that plays nicelly with the **negroni & gorilla** libraries.
+You can use it as a middleware for both **negroni** OR **gorilla** 
+
+An example using **negroni**:
 
 ```go
 n := negroni.New()
