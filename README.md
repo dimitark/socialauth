@@ -30,8 +30,8 @@ After setting up the configuration, the library can be used in two ways:
 ### Independent usage
 
 ```go
-socialAuth := NewSocialAuthWithConfigs(config)
-if provider := socialAuth.Get(socialauth.Facebook); provider != nil {
+auth := socialAuth.NewSocialAuthWithConfigs(config)
+if provider := auth.Get(socialauth.Facebook); provider != nil {
 	userID, err := provider.VerifyToken("USER_TOKEN")
 	if err != nil {
 		// Authentication failed!
