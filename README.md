@@ -1,4 +1,4 @@
-#Social Auth .go
+#SocialAuth.Go
 
 The SocialAuth package enables you to verify the OAuth2 authentication tokens issued by social providers. 
 

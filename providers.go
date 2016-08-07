@@ -38,18 +38,6 @@ type AuthProvider interface {
 	VerifyToken(userToken string) (string, error)
 }
 
-// Returns the correct provider implementation
-func getProvider(provider Provider, config map[string]string) AuthProvider {
-	switch provider {
-	case Facebook:
-		return newFBAuthProvider(config)
-	case Google:
-		return newGoogleAuthProvider(config)
-	}
-
-	return nil
-}
-
 // Fetches the given URL and returns the response
 // as JSON (through the target parameter)
 func getJSON(url string, target interface{}) error {

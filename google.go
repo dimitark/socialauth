@@ -5,12 +5,12 @@ type GoogleAuthProvider struct {
 	validator *GoogleTokenValidator
 }
 
-// The config must contain a the "appClientId" key with the value
-// for your project that can be found in your Google API's Dashboard
+// Creates a new Google Authentication Provider
+// The required appClientId can be found in your Google API's Dashboard
 // https://developers.google.com/identity/protocols/OAuth2
-func newGoogleAuthProvider(config map[string]string) *GoogleAuthProvider {
+func NewGoogleAuthProvider(appClientId string) *GoogleAuthProvider {
 	return &GoogleAuthProvider{
-		validator: NewGoogleTokenValidator(config["appClientId"]),
+		validator: NewGoogleTokenValidator(appClientId),
 	}
 }
 

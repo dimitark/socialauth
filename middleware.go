@@ -24,10 +24,7 @@ type Middleware struct {
 }
 
 // NewMiddleware creates a new Middleware with the given configuration
-func NewMiddleware(config map[Provider]map[string]string, contextSetFunc ContextSetFunc) *Middleware {
-	// The social auth
-	socialAuth := NewSocialAuthWithConfigs(config)
-
+func NewMiddleware(socialAuth *SocialAuth, contextSetFunc ContextSetFunc) *Middleware {
 	return &Middleware{
 		socialAuth:     socialAuth,
 		contextSetFunc: contextSetFunc,
