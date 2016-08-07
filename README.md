@@ -43,7 +43,7 @@ if provider := socialAuth.Get(socialauth.Facebook); provider != nil {
 
 ### Middleware usage
 
-Usually this library will be used as part of a middleware. For that reason, the library provides a middleware implementation, that plays nicelly with the **negori & gorilla** libraries.
+Usually this library will be used as part of a middleware. For that reason, the library provides a middleware implementation, that plays nicelly with the **negroni & gorilla** libraries.
 
 ```go
 n := negroni.New()
