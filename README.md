@@ -21,11 +21,11 @@ import "github.com/dimitark/socialauth"
 You need to configure the library, before you can use it.
 
 ```go
-	// Configure the SocialAuth
-	socialAuth := socialauth.NewSocialAuth(
-		socialauth.NewFacebookAuthProvider("YOUR_APP_ACCESS_TOKEN"),
-		socialauth.NewGoogleAuthProvider("YOUR_GOOGLE_APP_CLIENT_ID"),
-	)
+// Configure the SocialAuth
+socialAuth := socialauth.NewSocialAuth(
+	socialauth.NewFacebookAuthProvider("YOUR_APP_ACCESS_TOKEN"),
+	socialauth.NewGoogleAuthProvider("YOUR_GOOGLE_APP_CLIENT_ID"),
+)
 ```
 
 The library can be used in two ways:
