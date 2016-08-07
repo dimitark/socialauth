@@ -4,6 +4,16 @@ The SocialAuth package enables you to verify the OAuth2 authentication tokens is
 
 At the moment only two providers are available (Facebook and Google).  
 
+## Installation
+
+```
+go get github.com/dimitark/socialauth
+```
+
+```go
+import "github.com/dimitark/socialauth"
+```
+
 ## Usage
 
 ### Configuration
