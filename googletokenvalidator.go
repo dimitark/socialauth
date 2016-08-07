@@ -7,7 +7,6 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -48,8 +47,13 @@ type GoogleTokenValidator struct {
 // NewGoogleTokenValidator creates a new instance of the GoogleTokenValidator struct
 // Configures it and returns it
 func NewGoogleTokenValidator(appClientID string) *GoogleTokenValidator {
+	keys := getGooglePublicKeys()
+	if keys == nil {
+		return nil
+	}
+
 	return &GoogleTokenValidator{
-		publicKeys: getGooglePublicKeys(),
+		publicKeys: keys,
 		aud:        appClientID,
 	}
 }
@@ -89,7 +93,7 @@ func (v *GoogleTokenValidator) Validate(token string) (string, error) {
 		}
 	}
 
-	return "", errors.New("Invalid token format!")
+	return "", errors.New("Invalid token!")
 }
 
 func divideToken(token string) ([]byte, []byte, []byte, error) {
@@ -97,12 +101,30 @@ func divideToken(token string) ([]byte, []byte, []byte, error) {
 	if len(args) != 3 {
 		return nil, nil, nil, errors.New("Invalid token format!")
 	}
-	return safeDecode(args[1]), safeDecode(args[2]), toSHA256(args[0] + "." + args[1]), nil
+
+	payload, err := safeDecode(args[1])
+	if err != nil {
+		return nil, nil, nil, errors.New("Invalid token format!")
+	}
+
+	signature, err := safeDecode(args[2])
+	if err != nil {
+		return nil, nil, nil, errors.New("Invalid token format!")
+	}
+
+	return payload, signature, toSHA256(args[0] + "." + args[1]), nil
 }
 
 func getGooglePublicKeys() []*rsa.PublicKey {
-	res, _ := http.Get("https://www.googleapis.com/oauth2/v3/certs")
-	certsResp, _ := ioutil.ReadAll(res.Body)
+	res, err := http.Get("https://www.googleapis.com/oauth2/v3/certs")
+	if err != nil {
+		return nil
+	}
+
+	certsResp, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil
+	}
 	res.Body.Close()
 
 	var certs certs
@@ -110,25 +132,25 @@ func getGooglePublicKeys() []*rsa.PublicKey {
 
 	var publicKeys = make([]*rsa.PublicKey, len(certs.Keys))
 	for index, key := range certs.Keys {
-		publicKey, _ := key.DecodePublicKey()
+		publicKey, err := key.DecodePublicKey()
+		if err != nil {
+			continue
+		}
 		switch publicKey.(type) {
 		case *rsa.PublicKey:
 			publicKeys[index] = publicKey.(*rsa.PublicKey)
-		default:
-			fmt.Println("The public key is not a RSA public key")
 		}
 	}
 	return publicKeys
 }
 
-func safeDecode(str string) []byte {
+func safeDecode(str string) ([]byte, error) {
 	lenMod4 := len(str) % 4
 	if lenMod4 > 0 {
 		str = str + strings.Repeat("=", 4-lenMod4)
 	}
 
-	bytes, _ := base64.URLEncoding.DecodeString(str)
-	return bytes
+	return base64.URLEncoding.DecodeString(str)
 }
 
 func toSHA256(str string) []byte {

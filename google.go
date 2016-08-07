@@ -1,5 +1,7 @@
 package socialauth
 
+import "errors"
+
 // The GoogleAuthProvider validates the token against the google api
 type GoogleAuthProvider struct {
 	validator *GoogleTokenValidator
@@ -17,6 +19,10 @@ func NewGoogleAuthProvider(appClientId string) *GoogleAuthProvider {
 // VerifyToken verifies the given token against the server's provider (Facebook, Google...)
 // And returns the user ID or an error
 func (p *GoogleAuthProvider) VerifyToken(userToken string) (string, error) {
+	if p.validator == nil {
+		return "", errors.New("The token validator is not initialized properly!")
+	}
+
 	userID, err := p.validator.Validate(userToken)
 
 	if err != nil {
