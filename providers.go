@@ -11,11 +11,9 @@ import (
 type Provider int
 
 const (
-	unknown Provider = iota
-	// Facebook is the Facebook auth provider
-	Facebook Provider = iota
-	// Google is the Google auth provider
-	Google Provider = iota
+	unknown   Provider = iota
+	Facebook
+	Google
 )
 
 // ProviderFromName returns the provider from a given name
