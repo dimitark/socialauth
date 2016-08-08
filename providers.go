@@ -11,7 +11,7 @@ import (
 type Provider int
 
 const (
-	unknown   Provider = iota
+	unknown Provider = iota
 	Facebook
 	Google
 )
