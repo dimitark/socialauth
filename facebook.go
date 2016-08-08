@@ -26,6 +26,11 @@ func NewFacebookAuthProvider(appAccessToken string) *FacebookAuthProvider {
 	}
 }
 
+// Returns the identifier of this provider
+func (p *FacebookAuthProvider) Identifier() string {
+	return "facebook"
+}
+
 // VerifyToken verifies the given token against the Facebook's server
 // and returns the user ID or an error
 func (p *FacebookAuthProvider) VerifyToken(userToken string) (string, error) {

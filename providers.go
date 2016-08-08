@@ -4,33 +4,13 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-	"strings"
 )
-
-// ProviderService is the enum that defines the available providers
-type Provider int
-
-const (
-	unknown Provider = iota
-	Facebook
-	Google
-)
-
-// ProviderFromName returns the provider from a given name
-// Returns unknown if the given string is gibberish
-func ProviderFromName(name string) Provider {
-	switch strings.ToLower(name) {
-	case "facebook":
-		return Facebook
-	case "google":
-		return Google
-	default:
-		return unknown
-	}
-}
 
 // AuthProvider is an interface that provides a method for token verification
 type AuthProvider interface {
+	// Identifier returns the string identifier of the provider
+	Identifier() string
+
 	// Verifies the given token against the server's provider (Facebook, Google...)
 	// And returns the user ID or an error
 	VerifyToken(userToken string) (string, error)

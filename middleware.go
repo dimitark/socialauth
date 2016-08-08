@@ -48,7 +48,7 @@ func (am *Middleware) ServeHTTP(rw http.ResponseWriter, r *http.Request, next ht
 	providerHeaders := r.Header["X-Auth-Provider"]
 	tokenHeaders := r.Header["X-Auth-Token"]
 	if len(providerHeaders) > 0 && len(tokenHeaders) > 0 {
-		if provider := am.socialAuth.Get(ProviderFromName(providerHeaders[0])); provider != nil {
+		if provider := am.socialAuth.Get(providerHeaders[0]); provider != nil {
 			userID, err := provider.VerifyToken(tokenHeaders[0])
 			if err != nil {
 				fmt.Println("Auth error:", err)

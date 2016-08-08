@@ -37,7 +37,7 @@ The library can be used in two ways:
 ### Independent usage
 
 ```go
-if provider := socialAuth.Get(socialauth.Facebook); provider != nil {
+if provider := socialAuth.Get("facebook"); provider != nil {
 	userID, err := provider.VerifyToken("USER_TOKEN")
 	if err != nil {
 		// Authentication failed!
@@ -47,9 +47,6 @@ if provider := socialAuth.Get(socialauth.Facebook); provider != nil {
 }
 ```
 
-#### Provider From Name
-
-The function **func ProviderFromName(name string) Provider** is a helper function, that returns the **socialauth.Provider** for the given name.
 
 ### Middleware usage
 

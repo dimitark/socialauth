@@ -16,6 +16,11 @@ func NewGoogleAuthProvider(appClientId string) *GoogleAuthProvider {
 	}
 }
 
+// Returns the identifier of this provider
+func (p *GoogleAuthProvider) Identifier() string {
+	return "google"
+}
+
 // VerifyToken verifies the given token against the server's provider (Facebook, Google...)
 // And returns the user ID or an error
 func (p *GoogleAuthProvider) VerifyToken(userToken string) (string, error) {
