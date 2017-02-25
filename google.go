@@ -7,6 +7,10 @@ type GoogleAuthProvider struct {
 	validator *GoogleTokenValidator
 }
 
+func (p GoogleAuthProvider) Key() string {
+	return "google"
+}
+
 // Creates a new Google Authentication Provider
 // The required appClientId can be found in your Google API's Dashboard
 // https://developers.google.com/identity/protocols/OAuth2
